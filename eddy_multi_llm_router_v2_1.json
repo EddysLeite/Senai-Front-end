@@ -1,0 +1,426 @@
+{
+  "name": "EddY Core - Multi-LLM Router v2.1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "eddy-router",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-inbound",
+      "name": "Webhook Inbound",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "eddy-router"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body;\nconst taskType = (body.task_type || body.target_ai || 'general').toLowerCase();\n\nconst modelMap = {\n  'code': 'gpt-4o',\n  'programming': 'gpt-4o',\n  'script': 'gpt-4o',\n  'review': 'claude-sonnet-4',\n  'documentation': 'claude-sonnet-4',\n  'long_text': 'gemini-2.5-pro',\n  'pdf': 'gemini-2.5-pro',\n  'research': 'grok-3',\n  'search': 'grok-3',\n  'creative': 'kimi-latest',\n  'summary': 'kimi-latest',\n  'general': 'gpt-4o-mini'\n};\n\nconst selectedModel = modelMap[taskType] || modelMap['general'];\n\nreturn [{\n  json: {\n    prompt: body.prompt || body.message || body.content,\n    task_type: taskType,\n    model: selectedModel,\n    context: body.context || '',\n    session_id: body.session_id || Date.now().toString(),\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "classifier",
+      "name": "Task Classifier",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "value": "gpt-4o",
+              "output": 0
+            },
+            {
+              "value": "gpt-4o-mini",
+              "output": 0
+            },
+            {
+              "value": "claude-sonnet-4",
+              "output": 1
+            },
+            {
+              "value": "gemini-2.5-pro",
+              "output": 2
+            },
+            {
+              "value": "gemini-2.5-flash",
+              "output": 2
+            },
+            {
+              "value": "grok-3",
+              "output": 3
+            },
+            {
+              "value": "grok-3-mini",
+              "output": 3
+            },
+            {
+              "value": "kimi-latest",
+              "output": 4
+            },
+            {
+              "value": "kimi-k2",
+              "output": 4
+            }
+          ]
+        },
+        "dataType": "string",
+        "value1": "={{ $json.model }}",
+        "fallbackOutput": 0
+      },
+      "id": "router",
+      "name": "Model Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 2,
+      "position": [
+        650,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {
+          "temperature": 0.2
+        },
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are EddY Core's code assistant. Write clean, documented Python code."
+            },
+            {
+              "role": "user",
+              "content": "={{ $json.prompt }}"
+            }
+          ]
+        }
+      },
+      "id": "gpt-node",
+      "name": "GPT-4o (Code)",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [
+        900,
+        50
+      ],
+      "credentials": {
+        "openAiApi": "openai-credentials"
+      }
+    },
+    {
+      "parameters": {
+        "model": "claude-sonnet-4-20250514",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are EddY Core's documentation and review specialist."
+            },
+            {
+              "role": "user",
+              "content": "={{ $json.prompt }}"
+            }
+          ]
+        }
+      },
+      "id": "claude-node",
+      "name": "Claude Sonnet 4",
+      "type": "n8n-nodes-base.anthropic",
+      "typeVersion": 1,
+      "position": [
+        900,
+        200
+      ],
+      "credentials": {
+        "anthropicApi": "claude-credentials"
+      }
+    },
+    {
+      "parameters": {
+        "model": "gemini-2.5-pro",
+        "options": {},
+        "messages": {
+          "values": [
+            {
+              "role": "user",
+              "parts": "={{ $json.prompt }}"
+            }
+          ]
+        }
+      },
+      "id": "gemini-node",
+      "name": "Gemini 2.5 Pro",
+      "type": "n8n-nodes-base.googlePalm",
+      "typeVersion": 1,
+      "position": [
+        900,
+        350
+      ],
+      "credentials": {
+        "googlePalmApi": "gemini-credentials"
+      }
+    },
+    {
+      "parameters": {
+        "model": "grok-3",
+        "options": {
+          "temperature": 0.7
+        },
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are EddY Core's research assistant. Use search when needed."
+            },
+            {
+              "role": "user",
+              "content": "={{ $json.prompt }}"
+            }
+          ]
+        }
+      },
+      "id": "grok-node",
+      "name": "Grok 3",
+      "type": "n8n-nodes-base.xAiGrok",
+      "typeVersion": 1,
+      "position": [
+        900,
+        500
+      ],
+      "credentials": {
+        "xAiApi": "grok-credentials"
+      }
+    },
+    {
+      "parameters": {
+        "model": "kimi-latest",
+        "options": {
+          "temperature": 0.7
+        },
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are EddY Core's creative and long-context assistant."
+            },
+            {
+              "role": "user",
+              "content": "={{ $json.prompt }}"
+            }
+          ]
+        }
+      },
+      "id": "kimi-node",
+      "name": "Kimi Latest",
+      "type": "n8n-nodes-base.moonshotKimi",
+      "typeVersion": 1,
+      "position": [
+        900,
+        650
+      ],
+      "credentials": {
+        "moonshotKimiApi": "kimi-credentials"
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "session_id",
+              "field2": "session_id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "merge",
+      "name": "Merge Results",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        1150,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst modelUsed = input.model || 'unknown';\nconst response = input.content || input.text || input.message?.content || JSON.stringify(input);\n\nreturn [{\n  json: {\n    eddy_response: {\n      model_used: modelUsed,\n      task_type: input.task_type || 'general',\n      response: response,\n      tokens_used: input.usage?.total_tokens || 0,\n      timestamp: new Date().toISOString(),\n      session_id: input.session_id\n    }\n  }\n}];"
+      },
+      "id": "formatter",
+      "name": "Format EddY Output",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1350,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.eddy_response }}",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1550,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook Inbound": {
+      "main": [
+        [
+          {
+            "node": "Task Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Task Classifier": {
+      "main": [
+        [
+          {
+            "node": "Model Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Model Router": {
+      "main": [
+        [
+          {
+            "node": "GPT-4o (Code)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Claude Sonnet 4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Gemini 2.5 Pro",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Grok 3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Kimi Latest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT-4o (Code)": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Sonnet 4": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Gemini 2.5 Pro": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Grok 3": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Kimi Latest": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Merge Results": {
+      "main": [
+        [
+          {
+            "node": "Format EddY Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format EddY Output": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
