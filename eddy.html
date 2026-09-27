@@ -1,61 +1,1166 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>aula_HTML</title>
-    <link rel="stylesheet" href="style.css">
-    
+
+    <meta
+        name="description"
+        content="Edson Souza Leite — Consultor em formação tecnológica, com experiência em operação, atendimento, vendas, dados, automação, programação e soluções digitais."
+    >
+
+    <title>Edson Souza Leite | Consultor</title>
+
+    <style>
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* =========================
+           BASE
+        ========================= */
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #0b0b0f;
+            color: #eeeeee;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #292932;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .tag {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 7px 14px;
+            border: 1px solid #3b3b47;
+            border-radius: 30px;
+            color: #a7a7b5;
+            font-size: 14px;
+        }
+
+        h1 {
+            font-size: clamp(45px, 8vw, 90px);
+            line-height: 0.95;
+            margin-bottom: 20px;
+        }
+
+        h1 span {
+            color: #8f7cff;
+        }
+
+        .hero h2 {
+            font-size: 24px;
+            font-weight: normal;
+            color: #bdbdc8;
+            margin-bottom: 25px;
+        }
+
+        .hero p {
+            color: #a5a5b1;
+            max-width: 650px;
+        }
+
+
+        /* =========================
+           PROFILE
+        ========================= */
+
+        .profile-box {
+            border: 1px solid #292932;
+            padding: 30px;
+            border-radius: 18px;
+            background: #111117;
+        }
+
+        .profile-box h3 {
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .profile-box p {
+            margin-bottom: 15px;
+        }
+
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        section {
+            padding: 90px 0;
+            border-bottom: 1px solid #292932;
+        }
+
+        .section-title {
+            margin-bottom: 40px;
+        }
+
+        .section-title span {
+            color: #8f7cff;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-title h2 {
+            font-size: 40px;
+            margin-top: 8px;
+        }
+
+
+        /* =========================
+           ABOUT
+        ========================= */
+
+        .about {
+            max-width: 850px;
+        }
+
+        .about p {
+            margin-bottom: 18px;
+            color: #b7b7c1;
+        }
+
+        .highlight {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           EXPERIENCE
+        ========================= */
+
+        .timeline {
+            display: grid;
+            gap: 25px;
+        }
+
+        .experience {
+            border-left: 3px solid #8f7cff;
+            padding: 25px;
+            background: #111117;
+            border-radius: 0 15px 15px 0;
+        }
+
+        .experience h3 {
+            margin-bottom: 5px;
+        }
+
+        .experience .company {
+            color: #8f7cff;
+            margin-bottom: 12px;
+        }
+
+        .experience p {
+            color: #aaaaB5;
+        }
+
+
+        /* =========================
+           FORMATION
+        ========================= */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: #111117;
+            border: 1px solid #292932;
+            padding: 30px;
+            border-radius: 18px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #a8a8b3;
+        }
+
+
+        /* =========================
+           SKILLS
+        ========================= */
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill {
+            padding: 10px 15px;
+            border: 1px solid #383844;
+            border-radius: 30px;
+            color: #c8c8d0;
+            background: #111117;
+        }
+
+
+        /* =========================
+           PROJECTS
+        ========================= */
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .project {
+            background: #111117;
+            border: 1px solid #292932;
+            border-radius: 18px;
+            padding: 30px;
+            transition: 0.2s;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+            border-color: #8f7cff;
+        }
+
+        .project h3 {
+            margin-bottom: 15px;
+        }
+
+        .project p {
+            color: #a8a8b3;
+            margin-bottom: 15px;
+        }
+
+        .status {
+            font-size: 13px;
+            color: #8f7cff;
+        }
+
+
+        /* =========================
+           APPROACH
+        ========================= */
+
+        .process {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .process-item {
+            text-align: center;
+            padding: 25px 10px;
+            border: 1px solid #292932;
+            background: #111117;
+            border-radius: 15px;
+        }
+
+        .process-item strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .process-item span {
+            color: #858592;
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           CONTACT
+        ========================= */
+
+        .contact-box {
+            text-align: center;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .contact-box p {
+            color: #aaaaB5;
+            margin-bottom: 25px;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .button {
+            padding: 12px 20px;
+            border: 1px solid #383844;
+            border-radius: 30px;
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            background: #8f7cff;
+            color: #000000;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            color: #777783;
+        }
+
+
+        /* =========================
+           RESPONSIVIDADE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+            }
+
+            .process {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            header {
+                min-height: auto;
+                padding: 100px 0;
+            }
+        }
+
+    </style>
 </head>
 
-<img src="imagens/images (2).jpg" alt="">
-<img src="imagens/images.jpg" alt="Comi muita pipoca hoje">
-<H1>
-                    Eddy
-</h1>
 
-<P>
-    Rio de Janeiro/RJ - CEP: 21221-400 | +55 21 99651-9244 | sougeddy2@gmail.com 
-</P>
-
-<P>
-    http://www.eddy.com.br    
-</P>
-
-<h2>
-    RESUMO PROFISSIONAL
-</h2>
-
-<p>
-
-</p>
-
-<p>
+<body>
 
 
-</p>
-<p>
+    <!-- ==========================================
+         CABEÇALHO
+    =========================================== -->
+
+    <header>
+
+        <div class="container">
+
+            <div class="hero">
+
+                <div>
+
+                    <span class="tag">
+                        Edson Souza Leite
+                    </span>
+
+                    <h1>
+                        Edson<br>
+                        <span>Souza Leite.</span>
+                    </h1>
+
+                    <h2>
+                        Consultor em formação tecnológica.
+                    </h2>
+
+                    <p>
+                        Experiência em operação, atendimento, vendas,
+                        diagnóstico, dados, automação e soluções digitais.
+                    </p>
+
+                </div>
 
 
-</p>
-<p>
+                <div class="profile-box">
 
-</p>
-<p>
+                    <h3>
+                        Sobre este profissional
+                    </h3>
+
+                    <p>
+                        Sou Edson Souza Leite, profissional com experiência
+                        prática em atendimento, operação, vendas,
+                        negociação e resolução de problemas.
+                    </p>
+
+                    <p>
+                        Atualmente estou direcionando essa experiência para
+                        tecnologia, com formação em desenvolvimento web,
+                        banco de dados, programação, inteligência artificial,
+                        automação e construção de sistemas.
+                    </p>
+
+                    <p>
+                        Meu objetivo é transformar problemas reais em
+                        soluções úteis, compreensíveis e aplicáveis.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
 
 
-</p>
 
+    <!-- ==========================================
+         SOBRE
+    =========================================== -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <span>01 — Identidade</span>
+
+                <h2>
+                    Quem sou
+                </h2>
+
+            </div>
+
+
+            <div class="about">
+
+                <p>
+                    Minha trajetória não começou na programação.
+                    Ela começou lidando com pessoas, processos,
+                    problemas e situações que precisavam ser resolvidas.
+                </p>
+
+                <p>
+                    Passei por atendimento ao cliente, vendas,
+                    operação comercial, ambiente jurídico-administrativo
+                    e outras funções operacionais.
+                </p>
+
+                <p>
+                    Com o tempo, comecei a levar essa mesma lógica
+                    para o mundo digital:
+                    <span class="highlight">
+                        entender o problema, organizar a informação,
+                        encontrar uma solução e transformar essa solução
+                        em algo utilizável.
+                    </span>
+                </p>
+
+                <p>
+                    Hoje estou em formação tecnológica, aprofundando
+                    programação, desenvolvimento web, dados, IA,
+                    automação e construção de sistemas.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         EXPERIÊNCIA
+    =========================================== -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <span>02 — Experiência</span>
+
+                <h2>
+                    Onde já trabalhei
+                </h2>
+
+            </div>
+
+
+            <div class="timeline">
+
+
+                <div class="experience">
+
+                    <h3>
+                        Atendente de Telemarketing
+                    </h3>
+
+                    <div class="company">
+                        AeC — operação Light
+                    </div>
+
+                    <p>
+                        Atendimento residencial e comercial,
+                        tratamento de solicitações, registro de protocolos,
+                        orientação de clientes, resolução de problemas
+                        e atuação em ambiente operacional de alta demanda.
+                    </p>
+
+                </div>
+
+
+                <div class="experience">
+
+                    <h3>
+                        Vendedor de Moda Masculina
+                    </h3>
+
+                    <div class="company">
+                        Luidgi Specciale
+                    </div>
+
+                    <p>
+                        Atendimento personalizado, vendas consultivas,
+                        relacionamento com clientes, organização de estoque,
+                        exposição de produtos e construção de relacionamento
+                        comercial.
+                    </p>
+
+                </div>
+
+
+                <div class="experience">
+
+                    <h3>
+                        Consultor Comercial
+                    </h3>
+
+                    <div class="company">
+                        Voice Brasil
+                    </div>
+
+                    <p>
+                        Prospecção comercial, diagnóstico de necessidades,
+                        apresentação de soluções, negociação e atuação
+                        em vendas B2B e B2C.
+                    </p>
+
+                </div>
+
+
+                <div class="experience">
+
+                    <h3>
+                        Estagiário Administrativo Jurídico
+                    </h3>
+
+                    <div class="company">
+                        Siqueira Castro Advogados
+                    </div>
+
+                    <p>
+                        Apoio administrativo e jurídico, pesquisa,
+                        acompanhamento de processos, organização de
+                        informações, atividades relacionadas a órgãos
+                        públicos e atendimento de demandas administrativas.
+                    </p>
+
+                </div>
+
+
+                <div class="experience">
+
+                    <h3>
+                        Auxiliar de Cozinha
+                    </h3>
+
+                    <div class="company">
+                        Hummm Pizzas
+                    </div>
+
+                    <p>
+                        Atuação operacional em ambiente de produção,
+                        organização, controle de insumos, higiene,
+                        preparação e trabalho sob pressão.
+                    </p>
+
+                </div>
+
+
+                <div class="experience">
+
+                    <h3>
+                        Promotor de Vendas
+                    </h3>
+
+                    <div class="company">
+                        Brinquedos Bandeirantes
+                    </div>
+
+                    <p>
+                        Promoção de produtos em pontos de venda,
+                        relacionamento com responsáveis pelas lojas,
+                        demonstração de produtos e organização de exposição.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         FORMAÇÃO
+    =========================================== -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <span>03 — Formação</span>
+
+                <h2>
+                    Construindo a base tecnológica
+                </h2>
+
+            </div>
+
+
+            <div class="cards">
+
+
+                <div class="card">
+
+                    <h3>
+                        SENAI / SESI
+                    </h3>
+
+                    <p>
+                        Formação em Programação Front-End,
+                        trabalhando fundamentos de HTML, CSS,
+                        JavaScript, lógica de programação,
+                        variáveis, condicionais, arrays,
+                        loops, objetos e DOM.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>
+                        Estácio
+                    </h3>
+
+                    <p>
+                        Formação acadêmica relacionada a
+                        Banco de Dados / área de tecnologia,
+                        com contato com fundamentos de dados,
+                        sistemas e tecnologia da informação.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>
+                        Formação autodidata
+                    </h3>
+
+                    <p>
+                        Estudos e projetos envolvendo Python,
+                        SQLite, automação, processamento de arquivos,
+                        inteligência artificial, Git, GitHub
+                        e construção de ferramentas digitais.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>
+                        Formação prática
+                    </h3>
+
+                    <p>
+                        O aprendizado acontece através de projetos:
+                        entender, fazer, modificar, quebrar,
+                        corrigir, aplicar e transformar conhecimento
+                        em algo funcional.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         COMPETÊNCIAS
+    =========================================== -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <span>04 — Competências</span>
+
+                <h2>
+                    O que estou construindo
+                </h2>
+
+            </div>
+
+
+            <div class="skills">
+
+                <div class="skill">HTML</div>
+
+                <div class="skill">CSS</div>
+
+                <div class="skill">JavaScript</div>
+
+                <div class="skill">Lógica de Programação</div>
+
+                <div class="skill">Python</div>
+
+                <div class="skill">SQLite</div>
+
+                <div class="skill">Git</div>
+
+                <div class="skill">GitHub</div>
+
+                <div class="skill">Dados</div>
+
+                <div class="skill">Automação</div>
+
+                <div class="skill">Inteligência Artificial</div>
+
+                <div class="skill">Atendimento</div>
+
+                <div class="skill">Vendas</div>
+
+                <div class="skill">Negociação</div>
+
+                <div class="skill">Diagnóstico</div>
+
+                <div class="skill">Comunicação</div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         PROJETOS
+    =========================================== -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <span>05 — Projetos</span>
+
+                <h2>
+                    O que já construí
+                </h2>
+
+            </div>
+
+
+            <div class="projects">
+
+
+                <article class="project">
+
+                    <h3>
+                        NeverLost
+                    </h3>
+
+                    <p>
+                        Ferramenta criada para mapear e compreender
+                        grandes volumes de arquivos de forma local,
+                        com foco em preservação, inventário,
+                        organização e observação sem alteração
+                        dos dados.
+                    </p>
+
+                    <span class="status">
+                        Projeto em reconstrução e consolidação
+                    </span>
+
+                </article>
+
+
+                <article class="project">
+
+                    <h3>
+                        EddY Core
+                    </h3>
+
+                    <p>
+                        Arquitetura experimental voltada para
+                        inventário, análise, classificação,
+                        contexto, planejamento e verificação
+                        de dados e arquivos em ambientes locais.
+                    </p>
+
+                    <span class="status">
+                        Sistema interno / laboratório
+                    </span>
+
+                </article>
+
+
+                <article class="project">
+
+                    <h3>
+                        Python Papo Reto
+                    </h3>
+
+                    <p>
+                        Curso estruturado de Python criado para
+                        transformar o aprendizado da linguagem
+                        em uma sequência prática de aulas,
+                        exercícios, materiais e projetos.
+                    </p>
+
+                    <span class="status">
+                        Material educacional em evolução
+                    </span>
+
+                </article>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         FORMA DE PENSAR
+    =========================================== -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <span>06 — Método</span>
+
+                <h2>
+                    Como eu penso problemas
+                </h2>
+
+            </div>
+
+
+            <div class="process">
+
+                <div class="process-item">
+
+                    <strong>
+                        Entender
+                    </strong>
+
+                    <span>
+                        compreender o problema
+                    </span>
+
+                </div>
+
+
+                <div class="process-item">
+
+                    <strong>
+                        Diagnosticar
+                    </strong>
+
+                    <span>
+                        descobrir o que realmente acontece
+                    </span>
+
+                </div>
+
+
+                <div class="process-item">
+
+                    <strong>
+                        Construir
+                    </strong>
+
+                    <span>
+                        transformar a ideia em solução
+                    </span>
+
+                </div>
+
+
+                <div class="process-item">
+
+                    <strong>
+                        Testar
+                    </strong>
+
+                    <span>
+                        verificar o que funciona
+                    </span>
+
+                </div>
+
+
+                <div class="process-item">
+
+                    <strong>
+                        Melhorar
+                    </strong>
+
+                    <span>
+                        corrigir e evoluir
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         VISÃO
+    =========================================== -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <span>07 — Direção</span>
+
+                <h2>
+                    Para onde estou indo
+                </h2>
+
+            </div>
+
+
+            <div class="about">
+
+                <p>
+                    Estou construindo uma carreira que conecta
+                    experiência humana, processos e tecnologia.
+                </p>
+
+                <p>
+                    A tecnologia é uma ferramenta para resolver
+                    problemas reais — não apenas um conjunto de
+                    linguagens ou ferramentas para colocar no currículo.
+                </p>
+
+                <p>
+                    Minha formação atual está concentrada em
+                    desenvolvimento web, programação, dados,
+                    inteligência artificial e automação.
+                </p>
+
+                <p>
+                    A longo prazo, essa base deverá permitir a criação
+                    de sistemas, serviços, produtos digitais e soluções
+                    próprias através da EddY Digital Solutions.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         CONTATO
+    =========================================== -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="contact-box">
+
+                <div class="section-title">
+
+                    <span>08 — Contato</span>
+
+                    <h2>
+                        Vamos conversar
+                    </h2>
+
+                </div>
+
+
+                <p>
+                    Rio de Janeiro/RJ
+                </p>
+
+                <div class="links">
+
+                    <a
+                        class="button"
+                        href="mailto:sougeddy2@gmail.com"
+                    >
+                        E-mail
+                    </a>
+
+                    <a
+                        class="button"
+                        href="https://github.com/EddysLeite"
+                        target="_blank"
+                    >
+                        GitHub
+                    </a>
+
+                    <a
+                        class="button"
+                        href="#"
+                    >
+                        LinkedIn
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         RODAPÉ
+    =========================================== -->
+
+    <footer>
+
+        <div class="container">
+
+            <p>
+                Edson Souza Leite — Consultor
+            </p>
+
+            <p>
+                EddY Digital Solutions
+            </p>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+         Parte da aula / exercício
+    =========================================== -->
+
+    <script>
+
+        let precos = [5.50, 10.50, 8.00, 3.20];
+
+        console.log(precos[0] + precos[2]);
+
+        // Imprima a soma do elemento na 1ª posição
+        // e na 3ª posição.
+
+
+    </script>
+
+
+</body>
 
 </html>
-
-
-<script>
-
-let precos = [5.50,10.50,8.00,3.20];
-    console.log(precos[0] + precos[2]);
-//imprima a soma do elemento na 1º posição e na 3ª posição 
-
-
-
-</script>
